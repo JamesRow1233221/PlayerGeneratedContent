@@ -4,10 +4,12 @@ using UnityEngine.InputSystem;
 public class CarController : MonoBehaviour
 {
     private float moveInput;
-
+    private float turnInput;
     public Rigidbody sphereRB;
 
     public float fwdSpeed;
+    public float revSpeed;
+    public float turnSpeed;
 
     void Start()
     {
@@ -17,10 +19,15 @@ public class CarController : MonoBehaviour
     void Update()
     {
         moveInput = Input.GetAxisRaw("Vertical");
-        moveInput *= fwdSpeed;
+        turnInput = Input.GetAxisRaw("Horizontal"); 
+
+        moveInput *= moveInput > 0 ? fwdSpeed : revSpeed;
 
         // set cars position to sphere
         transform.position = sphereRB.transform.position;
+
+        float newRotation = turnInput * turnSpeed * Time.deltaTime;
+        transform.Rotate(0, newRotation, 0, Space.World);
     }
 
     private void FixedUpdate()

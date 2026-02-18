@@ -226,7 +226,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 2.6971, y: 2.6971, z: 2.6971}
+  m_LocalScale: {x: 81.7491, y: 81.7491, z: 81.7491}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -619,6 +619,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CarController
   sphereRB: {fileID: 1520231769}
   fwdSpeed: 200
+  revSpeed: 100
+  turnSpeed: 150
 --- !u!1 &2032046369
 GameObject:
   m_ObjectHideFlags: 0
