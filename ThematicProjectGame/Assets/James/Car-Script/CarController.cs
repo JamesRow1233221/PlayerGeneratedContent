@@ -16,6 +16,7 @@ public class CarController : MonoBehaviour
     public float modifiedDrag;
 
     public Rigidbody sphereRB;
+    public Rigidbody carRB;
 
     public LayerMask groundLayer;
 
@@ -24,6 +25,7 @@ public class CarController : MonoBehaviour
     void Start()
     {
         sphereRB.transform.parent = null;
+        carRB.transform.parent = null;
 
         normalDrag = sphereRB.linearDamping;
     }
@@ -65,5 +67,7 @@ public class CarController : MonoBehaviour
         {
             sphereRB.AddForce(transform.up * -40f);
         }
+
+        carRB.MoveRotation(transform.rotation);
     }
 }
