@@ -32,7 +32,8 @@ public class CarController : MonoBehaviour
 
     void Update()
     {
-        moveInput = Input.GetAxisRaw("Vertical");
+        float triggerAxis = Input.GetAxisRaw("Throttle");
+        moveInput = triggerAxis;
         turnInput = Input.GetAxisRaw("Horizontal");
 
         float newRot = turnInput * turnSpeed * Time.deltaTime * moveInput;
