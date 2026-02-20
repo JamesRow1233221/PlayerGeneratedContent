@@ -10,6 +10,8 @@ public class WheelController : MonoBehaviour
     public Transform[] frontSpinMeshes;  
 
     public Transform[] rearWheelMeshes;
+
+    public TrailRenderer[] trails;
     void Update()
     {
         float verticalAxis = Input.GetAxisRaw("Vertical");
@@ -17,6 +19,21 @@ public class WheelController : MonoBehaviour
 
         SpinWheels(verticalAxis);
         SteerFrontWheels(horizontalAxis);
+
+        if (horizontalAxis != 0)
+        {
+            foreach(var trail in trails)
+            {
+                trail.emitting = true;
+            }
+        }
+        else
+        {
+            foreach(var trail in trails)
+            {
+                trail.emitting = false;
+            }
+        }
     }
 
     void SpinWheels(float input)
