@@ -32,10 +32,6 @@ public class CarController : MonoBehaviour
 
     void Update()
     {
-        float triggerAxis = Input.GetAxisRaw("Throttle");
-        moveInput = triggerAxis;
-        turnInput = Input.GetAxisRaw("Horizontal");
-
         float newRot = turnInput * turnSpeed * Time.deltaTime * moveInput;
 
         if (isCarGrounded)
@@ -70,5 +66,15 @@ public class CarController : MonoBehaviour
         }
 
         carRB.MoveRotation(transform.rotation);
+    }
+
+    public void OnSteer(InputAction.CallbackContext input)
+    {
+        turnInput = input.ReadValue<float>();
+    }
+
+    public void OnThrottle(InputAction.CallbackContext input)
+    {
+        moveInput = input.ReadValue<float>();
     }
 }

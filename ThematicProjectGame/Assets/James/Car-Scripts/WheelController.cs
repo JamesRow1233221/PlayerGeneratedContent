@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WheelController : MonoBehaviour
 {
+    float verticalAxis;
+    float horizontalAxis;
 
     public float wheelSpinSpeed = 200f;
     public float steeringAngle = 35f;
@@ -14,9 +17,6 @@ public class WheelController : MonoBehaviour
     public TrailRenderer[] trails;
     void Update()
     {
-        float verticalAxis = Input.GetAxisRaw("Vertical");
-        float horizontalAxis = Input.GetAxisRaw("Horizontal");
-
         SpinWheels(verticalAxis);
         SteerFrontWheels(horizontalAxis);
 
@@ -58,5 +58,14 @@ public class WheelController : MonoBehaviour
             // Quaternion prevents the -180° flip
             pivot.localRotation = Quaternion.Euler(0f, steer, 0f);
         }
+    }
+    public void OnSteer(InputAction.CallbackContext input)
+    {
+        horizontalAxis = input.ReadValue<float>();
+    }
+
+    public void OnThrottle(InputAction.CallbackContext input)
+    {
+        verticalAxis = input.ReadValue<float>();
     }
 }
