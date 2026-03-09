@@ -50,10 +50,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b042ca7f782e9ca49a593e65bc8e0bc0, type: 3}
       propertyPath: m_Name
-      value: TrackTurn_High
+      value: TrackTurn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b042ca7f782e9ca49a593e65bc8e0bc0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3519571392380368336}
   m_SourcePrefab: {fileID: 100100000, guid: b042ca7f782e9ca49a593e65bc8e0bc0, type: 3}
+--- !u!1 &2043577851611472173 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b042ca7f782e9ca49a593e65bc8e0bc0, type: 3}
+  m_PrefabInstance: {fileID: 1197208645015002236}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-3519571392380368336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043577851611472173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc900f5b42484542b1bb3820b966bfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrackID
+  ID: 2
