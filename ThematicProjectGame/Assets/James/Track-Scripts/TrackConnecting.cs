@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TrackConnecting : MonoBehaviour
 {
@@ -17,13 +20,19 @@ public class TrackConnecting : MonoBehaviour
     private GameObject ghostObject;
     private HashSet<Vector3> occupiedPositions = new HashSet<Vector3>();
     private GameObject trackTurner;
+    private Button currentButton;
+    private float currentY = 0f;
+    private Transform lastPlacedTrack;
+    private float[] yValues = new float[] { -5.84f, 0f, 5.84f };
+    private int yIndex = 1;
+
 
     private void Start()
     {
         trackTurner = new GameObject("TrackTurner", typeof(Transform));
         if(trackTypes.Length > 0)
         {
-            CreateGhostObject();
+            //CreateGhostObject();
         }
         else
         {
@@ -41,11 +50,12 @@ public class TrackConnecting : MonoBehaviour
         }
     }
 
-    public void SelectTrackType(int index)
+    public void SelectTrackType(int index, Button button)
     {
         if(index >= 0 && index < trackTypes.Length)
         {
             currentTrackIndex = index;
+            currentButton = button;
             DestroyGhostObject();
             CreateGhostObject();
         }
@@ -102,27 +112,40 @@ public class TrackConnecting : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        if(Input.GetButtonDown("Jump"))
+            {
+                yIndex++;
+                if(yIndex > yValues.Length) yIndex = 0;
+                currentY = yValues[yIndex];
+                //ghostObject.transform.parent = trackTurner.transform;
+                //trackTurner.transform.position = new Vector3(ghostObject.transform.position.x,ghostObject.transform.position.y + currentY,transform.position.z);
+                Debug.Log(currentY + "    " + ghostObject.transform.position);
+            }
+
         if(Physics.Raycast(ray, out RaycastHit hit))
         {
             Vector3 point = hit.point;
 
             Vector3 snappedPosition = new Vector3(
                 Mathf.Round(hit.point.x / gridSize) * gridSize,
-                Mathf.Round(hit.point.y / gridSize) * gridSize,
+                (Mathf.Round(hit.point.y / gridSize) * gridSize) + currentY,
                 Mathf.Round(hit.point.z / gridSize) * gridSize
             );
-            
+
+
             if(currentTrackIndex == 4)
             {
                 snappedPosition += ghostObject.transform.forward * (-gridSize / 2f);
             }
             ghostObject.transform.position = snappedPosition;
 
+
             if (occupiedPositions.Contains(snappedPosition))
                 SetGhostColor(Color.red);
             else
                 SetGhostColor(new Color(1f, 1f, 1f, 0.5f));
         }
+
 
         Vector3 ghostPos = ghostObject.transform.position;
         if(currentTrackIndex < 3)
@@ -144,8 +167,11 @@ public class TrackConnecting : MonoBehaviour
             ghostObject.transform.parent = trackTurner.transform;
             trackTurner.transform.Rotate(0, -90f,0, Space.Self);
         }
+
+
         trackTurner.transform.position = ghostPos;
         ghostObject.transform.parent = null;
+
     }
 
     void SetGhostColor(Color color)
@@ -166,10 +192,15 @@ public class TrackConnecting : MonoBehaviour
         Vector3 placementPosition = ghostObject.transform.position;
         Quaternion placementRotation = ghostObject.transform.rotation;
 
-        if(!occupiedPositions.Contains(placementPosition))
+        if(!occupiedPositions.Contains(placementPosition) && currentTrackIndex >= 0)
         {
             Instantiate(trackTypes[currentTrackIndex].prefab, placementPosition, placementRotation);
             occupiedPositions.Add(placementPosition);
+
+            currentButton.interactable = false;
+            currentTrackIndex = -1;
+            ghostObject = null;
+
         }
     }
 
@@ -177,4 +208,7 @@ public class TrackConnecting : MonoBehaviour
     {
         DestroyGhostObject();
     }
+
+
+
 }

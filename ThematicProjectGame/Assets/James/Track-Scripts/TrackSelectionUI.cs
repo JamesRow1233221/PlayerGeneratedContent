@@ -14,6 +14,7 @@ public class TrackSelectionUI : MonoBehaviour
 
     private List<Button> trackButtons = new List<Button>();
     private int currentSelectedIndex = 0;
+    public int players = 4;
 
     private void Start()
     {
@@ -48,9 +49,17 @@ public class TrackSelectionUI : MonoBehaviour
 
             int index = i;
             button.onClick.AddListener(() => OnTrackButtonClicked(index));
-
+            button.interactable = false;
             trackButtons.Add(button);
         }
+        List<Button> tempBut = new List<Button>(trackButtons);
+        for(int i=0; i < players; i++)
+        {
+            int g = Random.Range(0, tempBut.Count);
+            tempBut[g].interactable = true;
+            tempBut.RemoveAt(g);
+        }
+        
 
         UpdateButtonColors();
     }
@@ -58,7 +67,7 @@ public class TrackSelectionUI : MonoBehaviour
     void OnTrackButtonClicked(int index)
     {
         currentSelectedIndex = index;
-        trackConnecting.SelectTrackType(index);
+        trackConnecting.SelectTrackType(index, trackButtons[index]);
         UpdateButtonColors();
     }
 
