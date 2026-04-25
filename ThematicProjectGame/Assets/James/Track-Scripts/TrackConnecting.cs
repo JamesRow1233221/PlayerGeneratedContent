@@ -16,9 +16,11 @@ public class TrackConnecting : MonoBehaviour
     private int currentTrackIndex = 0;
     private GameObject ghostObject;
     private HashSet<Vector3> occupiedPositions = new HashSet<Vector3>();
+    private GameObject trackTurner;
 
     private void Start()
     {
+        trackTurner = new GameObject("TrackTurner", typeof(Transform));
         if(trackTypes.Length > 0)
         {
             CreateGhostObject();
@@ -27,6 +29,7 @@ public class TrackConnecting : MonoBehaviour
         {
             Debug.LogError("No track types assigned to TrackConnecting!");
         }
+        
     }
 
     private void Update()
@@ -108,6 +111,11 @@ public class TrackConnecting : MonoBehaviour
                 Mathf.Round(hit.point.y / gridSize) * gridSize,
                 Mathf.Round(hit.point.z / gridSize) * gridSize
             );
+            
+            if(currentTrackIndex == 4)
+            {
+                snappedPosition += ghostObject.transform.forward * (-gridSize / 2f);
+            }
             ghostObject.transform.position = snappedPosition;
 
             if (occupiedPositions.Contains(snappedPosition))
@@ -115,6 +123,29 @@ public class TrackConnecting : MonoBehaviour
             else
                 SetGhostColor(new Color(1f, 1f, 1f, 0.5f));
         }
+
+        Vector3 ghostPos = ghostObject.transform.position;
+        if(currentTrackIndex < 3)
+        {
+            trackTurner.transform.position = new Vector3(ghostPos.x, ghostPos.y, ghostPos.z) - ghostObject.transform.forward * 10;
+        }
+        else trackTurner.transform.position = ghostPos;
+        
+        trackTurner.transform.rotation = ghostObject.transform.rotation;
+        ghostObject.transform.parent = trackTurner.transform;
+        if(Input.GetButtonDown("Horizontal") && Input.GetAxis("Horizontal") < 0f)
+        {
+            ghostObject.transform.parent = trackTurner.transform;
+            trackTurner.transform.Rotate(0, 90f,0, Space.Self);
+
+        }
+        else if(Input.GetButtonDown("Horizontal") && Input.GetAxis("Horizontal") > 0f)
+        {
+            ghostObject.transform.parent = trackTurner.transform;
+            trackTurner.transform.Rotate(0, -90f,0, Space.Self);
+        }
+        trackTurner.transform.position = ghostPos;
+        ghostObject.transform.parent = null;
     }
 
     void SetGhostColor(Color color)
@@ -133,10 +164,11 @@ public class TrackConnecting : MonoBehaviour
             return;
 
         Vector3 placementPosition = ghostObject.transform.position;
+        Quaternion placementRotation = ghostObject.transform.rotation;
 
         if(!occupiedPositions.Contains(placementPosition))
         {
-            Instantiate(trackTypes[currentTrackIndex].prefab, placementPosition, Quaternion.identity);
+            Instantiate(trackTypes[currentTrackIndex].prefab, placementPosition, placementRotation);
             occupiedPositions.Add(placementPosition);
         }
     }

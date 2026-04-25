@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TrackSelectionUI : MonoBehaviour
 {
@@ -33,12 +34,17 @@ public class TrackSelectionUI : MonoBehaviour
         {
             GameObject buttonObj = Instantiate(buttonPrefab, buttonContainer);
             Button button = buttonObj.GetComponent<Button>();
-            Text buttonText = buttonObj.GetComponentInChildren<Text>();
+            TMP_Text buttonText = buttonObj.GetComponentInChildren<TMP_Text>();
 
             if(buttonText != null)
             {
                 buttonText.text = trackTypes[i].name;
             }
+            else
+            {
+                Debug.LogWarning("Button Text is missing!");
+            }
+           
 
             int index = i;
             button.onClick.AddListener(() => OnTrackButtonClicked(index));
