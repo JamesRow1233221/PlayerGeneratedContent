@@ -133,7 +133,7 @@ public class TrackConnecting : MonoBehaviour
             );
 
 
-            if(currentTrackIndex == 4)
+            if(currentTrackIndex >= 4)
             {
                 snappedPosition += ghostObject.transform.forward * (-gridSize / 2f);
             }
