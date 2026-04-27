@@ -137,6 +137,11 @@ public class TrackConnecting : MonoBehaviour
             {
                 snappedPosition += ghostObject.transform.forward * (-gridSize / 2f);
             }
+            if(currentTrackIndex == 3)
+            {
+                snappedPosition = new Vector3(snappedPosition.x,snappedPosition.y + 0.4f,snappedPosition.z);
+            }
+            
             ghostObject.transform.position = snappedPosition;
 
 
