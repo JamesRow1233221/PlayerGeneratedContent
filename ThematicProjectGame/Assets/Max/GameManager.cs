@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameManager : MonoBehaviour
+public static class GameManager
 {
-    public static GameManager Instance {  get; private set; }
-    private GameStates state;
+    static private GameStates state;
 
-    public GameStates State 
+    static public GameStates State 
     {
         get
         {
@@ -14,48 +13,41 @@ public class GameManager : MonoBehaviour
         }
         private set
         {
-            StateSwitched(value, state);
+            StateSwitched(state, value);
             state = value;
         }
     }
 
-    public UnityEvent<GameStates, GameStates> stateSwitched;
+    static public UnityEvent<GameStates, GameStates> stateSwitched;
 
-    private void Awake()
+    [RuntimeInitializeOnLoadMethod]
+    public static void StartManager()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
+        Debug.Log("Game Manager Started");
 
         state = GameStates.None;
         stateSwitched = new UnityEvent<GameStates, GameStates>();
-
-        Debug.Log(Instance);
     }
 
-    public void StartGame()
+    public static void StartGame()
     {
         StartPlacingTrack();
     }
 
-    public void StartPlacingTrack()
+    public static void StartPlacingTrack()
     {
         State = GameStates.Track;
     }
 
-    public void EndTrackPlacement()
+    public static void EndTrackPlacement()
     {
         State = GameStates.Race;
     }
 
-    void StateSwitched(GameStates oldState, GameStates newState) 
+    static void StateSwitched(GameStates oldState, GameStates newState) 
     {
         stateSwitched.Invoke(oldState, newState);
+        Debug.Log("STATE SWITCH: " + oldState.ToString() + " -> " + newState.ToString());
     }
 }
 
