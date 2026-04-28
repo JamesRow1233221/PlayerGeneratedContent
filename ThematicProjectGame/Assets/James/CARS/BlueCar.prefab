@@ -50,14 +50,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8424713195351584951, guid: f66c1caa673ae0a49a10e57c3c9ca937, type: 3}
       propertyPath: m_Name
-      value: BlueCar 1
+      value: BlueCar
       objectReference: {fileID: 0}
     - target: {fileID: 9075685760717904406, guid: f66c1caa673ae0a49a10e57c3c9ca937, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 1e012e3bd24feac4083959d401f2d6ea, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7353089342974072144, guid: f66c1caa673ae0a49a10e57c3c9ca937, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f66c1caa673ae0a49a10e57c3c9ca937, type: 3}

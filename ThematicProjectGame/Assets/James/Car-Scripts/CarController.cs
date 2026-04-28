@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class CarController : MonoBehaviour
 {
+    bool isControllable = false;
+
     public float fwdSpeed;
     public float revSpeed;
     public float turnSpeed;
@@ -28,47 +30,69 @@ public class CarController : MonoBehaviour
         carRB.transform.parent = null;
 
         normalDrag = sphereRB.linearDamping;
+
+        GameManager.Instance.stateSwitched.AddListener(StateSwitched);
     }
 
     void Update()
     {
-        float triggerAxis = Input.GetAxisRaw("Throttle");
-        moveInput = triggerAxis;
-        turnInput = Input.GetAxisRaw("Horizontal");
-
-        float newRot = turnInput * turnSpeed * Time.deltaTime * moveInput;
-
-        if (isCarGrounded)
+        if (isControllable)
         {
-            transform.Rotate(0, newRot, 0, Space.World);
+            float triggerAxis = Input.GetAxisRaw("Throttle");
+            moveInput = triggerAxis;
+            turnInput = Input.GetAxisRaw("Horizontal");
+
+            float newRot = turnInput * turnSpeed * Time.deltaTime * moveInput;
+
+            if (isCarGrounded)
+            {
+                transform.Rotate(0, newRot, 0, Space.World);
+            }
+
+            transform.position = sphereRB.transform.position;
+
+
+
+            RaycastHit hit;
+            isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 1f, groundLayer);
+
+            Quaternion toRotateTo = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            transform.rotation = Quaternion.Slerp(transform.rotation, toRotateTo, alignToGroundTime * Time.deltaTime);
+
+            moveInput *= moveInput > 0 ? fwdSpeed : revSpeed;
+
+            sphereRB.linearDamping = isCarGrounded ? normalDrag : modifiedDrag;
         }
-    
-        transform.position = sphereRB.transform.position;
-
-        
-
-        RaycastHit hit;
-        isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 1f, groundLayer);
-
-        Quaternion toRotateTo = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-        transform.rotation = Quaternion.Slerp(transform.rotation, toRotateTo, alignToGroundTime * Time.deltaTime);
-
-        moveInput *= moveInput > 0 ? fwdSpeed : revSpeed;
-
-        sphereRB.linearDamping = isCarGrounded ? normalDrag : modifiedDrag;
     }
 
     private void FixedUpdate()
     {
-        if (isCarGrounded)
+        if (isControllable)
         {
-            sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
-        }
-        else
-        {
-            sphereRB.AddForce(transform.up * -40f);
-        }
+            if (isCarGrounded)
+            {
+                sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
+            }
+            else
+            {
+                sphereRB.AddForce(transform.up * -40f);
+            }
 
-        carRB.MoveRotation(transform.rotation);
+            carRB.MoveRotation(transform.rotation);
+        }
+    }
+
+    void StateSwitched(GameStates oldState, GameStates newState)
+    {
+        switch (newState)
+        {
+            case GameStates.Race:
+                isControllable = true; 
+                break;
+
+            default:
+                isControllable = false;
+                break;
+        }
     }
 }

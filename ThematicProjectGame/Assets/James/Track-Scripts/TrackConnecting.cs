@@ -25,6 +25,7 @@ public class TrackConnecting : MonoBehaviour
     private Transform lastPlacedTrack;
     private float[] yValues = new float[] { -5.84f, 0f, 5.84f };
     private int yIndex = 1;
+    private int tracksPlaced = 0;
 
 
     private void Start()
@@ -38,7 +39,8 @@ public class TrackConnecting : MonoBehaviour
         {
             Debug.LogError("No track types assigned to TrackConnecting!");
         }
-        
+
+        GameManager.Instance.stateSwitched.AddListener(StateSwitched);
     }
 
     private void Update()
@@ -48,6 +50,11 @@ public class TrackConnecting : MonoBehaviour
         {
             PlaceObject();
         }
+    }
+
+    void StateSwitched(GameStates oldState, GameStates newState)
+    {
+
     }
 
     public void SelectTrackType(int index, Button button)
@@ -206,6 +213,12 @@ public class TrackConnecting : MonoBehaviour
             currentTrackIndex = -1;
             ghostObject = null;
 
+            tracksPlaced++;
+
+            if (tracksPlaced > 3)
+            {
+                GameManager.Instance.EndTrackPlacement();
+            }
         }
     }
 
@@ -213,7 +226,4 @@ public class TrackConnecting : MonoBehaviour
     {
         DestroyGhostObject();
     }
-
-
-
 }
