@@ -44,10 +44,10 @@ public static class GameManager
         State = GameStates.Race;
     }
 
-    static void StateSwitched(GameStates oldState, GameStates newState) 
+    static void StateSwitched(GameStates oldState, GameStates newState)
     {
-        stateSwitched.Invoke(oldState, newState);
         Debug.Log("STATE SWITCH: " + oldState.ToString() + " -> " + newState.ToString());
+        stateSwitched.Invoke(oldState, newState);
     }
 }
 
