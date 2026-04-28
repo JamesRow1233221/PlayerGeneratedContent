@@ -40,7 +40,10 @@ public class TrackConnecting : MonoBehaviour
             Debug.LogError("No track types assigned to TrackConnecting!");
         }
 
-        GameManager.Instance.stateSwitched.AddListener(StateSwitched);
+        Debug.Log("Track Placement Started");
+        GameManager.stateSwitched.AddListener(StateSwitched);
+
+        GameManager.StartPlacingTrack();
     }
 
     private void Update()
@@ -217,7 +220,7 @@ public class TrackConnecting : MonoBehaviour
 
             if (tracksPlaced > 3)
             {
-                GameManager.Instance.EndTrackPlacement();
+                GameManager.EndTrackPlacement();
             }
         }
     }
