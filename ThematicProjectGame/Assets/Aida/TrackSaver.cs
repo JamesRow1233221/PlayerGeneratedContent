@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class TrackSaver : MonoBehaviour
     public class SaveableTracksInScene
     {
         public SaveableTrack[] saveableTracks;
+        public string courseName;
     }
 
     [System.Serializable]
@@ -24,26 +26,37 @@ public class TrackSaver : MonoBehaviour
     
     private string trackName = "NewTrack";
     [SerializeField] private TMP_InputField inputField;
-    [SerializeField] private GameObject[] layout;
+    [SerializeField] private List<GameObject> layout = new List<GameObject>();
+    [SerializeField] private GameObject buttonPrefab;
+    [SerializeField] private GameObject buttonParent;
+    [Header("Screenshot Settings")]
+    public Vector3 pos;
+    public Vector3 rot;
+    private GameObject screenshotCam;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         GetSaves();
+        screenshotCam = new GameObject("ScreenshotCam", typeof(Camera));
+        screenshotCam.transform.position = pos;
+        screenshotCam.transform.eulerAngles = rot;
+        screenshotCam.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.X))
-        {
-            Save();
-        }
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            GetSaves();
-        }
+        // For Debuging!
+        // if(Input.GetKeyDown(KeyCode.X))
+        // {
+        //     Save();
+        // }
+        // if(Input.GetKeyDown(KeyCode.Z))
+        // {
+        //     GetSaves();
+        // }
 
     }
 
@@ -53,7 +66,8 @@ public class TrackSaver : MonoBehaviour
 
         SaveableTracksInScene objectData = new SaveableTracksInScene
         {
-            saveableTracks = new SaveableTrack[objectsInScene.Length]
+            saveableTracks = new SaveableTrack[objectsInScene.Length],
+            courseName = inputField.text         
         };
 
         for(int i = 0; i < objectData.saveableTracks.Length; i++)
@@ -62,14 +76,14 @@ public class TrackSaver : MonoBehaviour
             {
                 WorldPosition = objectsInScene[i].transform.position,
                 WorldRotation = objectsInScene[i].transform.rotation,
-                ID = objectsInScene[i].ID
+                ID = objectsInScene[i].ID,
             };
         }
 
         trackName = inputField.text;
         SaveSystem.Save(objectData, trackName);
+        StartCoroutine(CaptureScreenshot(trackName));
         Debug.Log("SAVING...");
-        GetSaves();
         
     }
 
@@ -96,19 +110,41 @@ public class TrackSaver : MonoBehaviour
 
         string[] saves = Directory.GetFiles(DirectoryPath, "*.json");
         Debug.Log(saves.Length);
-        Debug.Log(layout.Length);
+        Debug.Log(layout.Count);
         for(int i=0; i < saves.Length; i++)
         {
             //SaveSystem.Load(out SaveableTracksInScene LoadedObjectData, saves[i]);
-            layout[i].transform.GetChild(0).GetComponent<TMP_Text>().text = Path.GetFileNameWithoutExtension(saves[i]).Substring(1);
+            if(i == layout.Count)
+            {
+                var newButt = Instantiate(buttonPrefab,new Vector3(0,0,0), Quaternion.identity,buttonParent.transform);
+                layout.Add(newButt);
+            }
+            string tempName = Path.GetFileNameWithoutExtension(saves[i]).Substring(1);
+            layout[i].transform.GetChild(0).GetComponent<TMP_Text>().text = tempName;
+            Texture2D tex = new Texture2D(2,2, TextureFormat.BGRA32, false);
+            var fileData = File.ReadAllBytes($"{DirectoryPath}{tempName}.png");
+            tex.LoadImage(fileData);
+            layout[i].transform.GetChild(1).GetComponent<RawImage>().texture = tex;
             layout[i].SetActive(true);
         }
 
-        for(int i=saves.Length; i < layout.Length; i++)
+        for(int i=saves.Length; i < layout.Count; i++)
         {
             layout[i].gameObject.SetActive(false);
         }
     }
+
+    public IEnumerator CaptureScreenshot(string courseName)
+    {
+        screenshotCam.SetActive(true);
+        string DirectoryPath = $"{Application.dataPath}/Saves/";
+        yield return null;
+        ScreenCapture.CaptureScreenshot($"{DirectoryPath}{courseName}.png");
+        yield return null;
+        screenshotCam.SetActive(false);
+        GetSaves();
+    }
+
 }
 
 
