@@ -27,7 +27,6 @@ public class TrackConnecting : MonoBehaviour
     private int yIndex = 1;
     private int tracksPlaced = 0;
 
-
     private void Start()
     {
         trackTurner = new GameObject("TrackTurner", typeof(Transform));
@@ -41,6 +40,7 @@ public class TrackConnecting : MonoBehaviour
         }
 
         Debug.Log("Track Placement Started");
+
         GameManager.stateSwitched.AddListener(StateSwitched);
 
         GameManager.StartPlacingTrack();
