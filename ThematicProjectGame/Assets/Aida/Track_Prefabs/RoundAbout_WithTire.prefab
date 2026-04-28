@@ -1308,6 +1308,59 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.5366839, y: 1.2005002, z: 3.0558012}
   m_Center: {x: 0.014543744, y: 0.14113593, z: -0.43619165}
+--- !u!1 &6054334276402415249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6589116471512377511}
+  - component: {fileID: 6139708851803871340}
+  m_Layer: 9
+  m_Name: RayDetect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6589116471512377511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6054334276402415249}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6634986914710710205}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6139708851803871340
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6054334276402415249}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 384
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 30.08538, y: 1.4141123, z: 2.3156967}
+  m_Center: {x: 0.6119499, y: 0.20705613, z: 0.65784836}
 --- !u!1 &6166471093258125666
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,6 +1487,7 @@ Transform:
   - {fileID: 5643374233268042497}
   - {fileID: 7089327611236165515}
   - {fileID: 450702144726879097}
+  - {fileID: 6589116471512377511}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7763061048856111128

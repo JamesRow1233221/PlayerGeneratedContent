@@ -479,6 +479,7 @@ GameObject:
   - component: {fileID: 805920965}
   - component: {fileID: 805920964}
   - component: {fileID: 805920968}
+  - component: {fileID: 805920969}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -596,13 +597,34 @@ MonoBehaviour:
     prefab: {fileID: 4506608998309921534, guid: 0fdaed225c4d23345a272c96060da186, type: 3}
   - name: PlainTrack
     prefab: {fileID: 4026941953560965047, guid: 270f513b5bbe434439f9b949c9df8326, type: 3}
-  - name: HillTrack
-    prefab: {fileID: 2871561161732162080, guid: a4905220752c1264d93830689cce92af, type: 3}
+  - name: Small Ramp
+    prefab: {fileID: 8179310500823607116, guid: d0b08a94f4511d04ea46aef5f1789a07, type: 3}
   - name: TurnTrack
     prefab: {fileID: 2043577851611472173, guid: 9e22010cac5349446bf95056ceccfa29, type: 3}
   - name: RoundAboutTrack
     prefab: {fileID: 8272562709878888890, guid: 4ed4e9bae5d888a47a6942d96b16acb3, type: 3}
   gridSize: 20
+  lastPlacedTrack: {fileID: 0}
+  finishPrefab: {fileID: 7128900132206451153, guid: 40aa4a5a0e4a5d0438189fcb79aca921, type: 3}
+  rayLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  pointSystem: {fileID: 805920969}
+  rayPos: {x: 0, y: 0, z: 0}
+  rayRot: {x: 0, y: 0, z: 0}
+--- !u!114 &805920969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805920963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292d6f5efd299d3428ecc072343668e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointSystem
+  finishPrefab: {fileID: 7128900132206451153, guid: 40aa4a5a0e4a5d0438189fcb79aca921, type: 3}
 --- !u!1 &958267233
 GameObject:
   m_ObjectHideFlags: 0
