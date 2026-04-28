@@ -33,7 +33,12 @@ public class TrackSelectionUI : MonoBehaviour
 
         for(int i = 0; i < trackTypes.Length; i++)
         {
-            GameObject buttonObj = Instantiate(buttonPrefab, buttonContainer);
+            GameObject buttonObj;
+            if(buttonContainer.transform.childCount < i+1) 
+            {
+                buttonObj = Instantiate(buttonPrefab, buttonContainer);
+            }
+            else buttonObj = buttonContainer.GetChild(i).gameObject;
             Button button = buttonObj.GetComponent<Button>();
             TMP_Text buttonText = buttonObj.GetComponentInChildren<TMP_Text>();
 
