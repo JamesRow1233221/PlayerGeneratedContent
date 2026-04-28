@@ -31,7 +31,7 @@ public class CarController : MonoBehaviour
 
         normalDrag = sphereRB.linearDamping;
 
-        GameManager.Instance.stateSwitched.AddListener(StateSwitched);
+        GameManager.stateSwitched.AddListener(StateSwitched);
     }
 
     void Update()

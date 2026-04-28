@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1766919844263405201}
   - component: {fileID: 4567120018109125211}
   - component: {fileID: 4352225547160840739}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 5503145501843627218}
   - component: {fileID: -324243719327996392}
   - component: {fileID: -2563147412996418414}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RoundAbout_WithTire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 7402966177790985240}
   - component: {fileID: 4708629743722197202}
   - component: {fileID: 2548972647418349562}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tire (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 5681574772628280212}
   - component: {fileID: 7583487203263948638}
   - component: {fileID: 1003031518084976821}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tire (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +472,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8312743460759820756}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TIreStack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
