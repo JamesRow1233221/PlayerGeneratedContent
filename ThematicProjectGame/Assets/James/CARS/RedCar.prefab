@@ -1050,6 +1050,7 @@ GameObject:
   - component: {fileID: 4813976351330554154}
   - component: {fileID: 3832251900903959962}
   - component: {fileID: 8336378889589545727}
+  - component: {fileID: 231585983321021971}
   m_Layer: 8
   m_Name: RedCar
   m_TagString: Untagged
@@ -1124,6 +1125,36 @@ MonoBehaviour:
   trails:
   - {fileID: 3029732188192780198}
   - {fileID: 7830056234813764671}
+--- !u!114 &231585983321021971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8424713195351584951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d268a9deb8cafc47ae1ba15ba5a78ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SFXCar
+  wheelColliders: []
+  engineIdleClip: {fileID: 8300000, guid: c2c9f9ad692e1e140af264b2324d04c5, type: 3}
+  engineHighClip: {fileID: 8300000, guid: 6083442ce255eb541a09950d4867f401, type: 3}
+  engineMinPitch: 0.7
+  engineMaxPitch: 1.3
+  maxSpeedForPitch: 40
+  engineIdleVolume: 0.6
+  engineHighMaxVolume: 1
+  tireScreechClip: {fileID: 0}
+  tireScreechMaxVolume: 0.9
+  slipThreshold: 0.3
+  screechSpeedFallback: 8
+  screechFadeSpeed: 5
+  collisionClips:
+  - {fileID: 0}
+  minCollisionForce: 2
+  maxCollisionForce: 20
+  collisionCooldown: 0.3
 --- !u!1 &9113743190955986657
 GameObject:
   m_ObjectHideFlags: 0

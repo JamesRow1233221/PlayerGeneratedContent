@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SFXCar : MonoBehaviour
 {
-    private Rigidbody carRigidbody;
+    public Rigidbody carRigidbody;
 
     public WheelCollider[] wheelColliders;
 
