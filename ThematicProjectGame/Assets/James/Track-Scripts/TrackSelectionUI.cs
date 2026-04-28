@@ -18,17 +18,21 @@ public class TrackSelectionUI : MonoBehaviour
 
     private void Start()
     {
-        if(trackConnecting == null)
+        Debug.Log("switched selection started ");
+
+        if (trackConnecting == null)
         {
             Debug.LogError("TrackConnecting reference not assigned!");
             return;
         }
 
-        GenerateTrackButtons();
+        GameManager.stateSwitched.AddListener(StateSwitched);
     }
 
     void GenerateTrackButtons()
     {
+        Debug.Log("GENERATING TRACK BUTTONS");
+
         TrackConnecting.TrackType[] trackTypes = trackConnecting.GetTrackTypes();
 
         for(int i = 0; i < trackTypes.Length; i++)
@@ -78,6 +82,30 @@ public class TrackSelectionUI : MonoBehaviour
             ColorBlock colors = trackButtons[i].colors;
             colors.normalColor = (i == currentSelectedIndex) ? selectedColor : normalColor;
             trackButtons[i].colors = colors;
+        }
+    }
+
+    void StateSwitched(GameStates oldState, GameStates newState)
+    {
+        Debug.Log("HI THE STATE HAS SWITCHED HAHA YES!");
+
+        switch (newState)
+        {
+            case GameStates.TrackToRace | GameStates.Race:
+                foreach (Button i in trackButtons)
+                {
+                    Destroy(i);
+                }
+
+                trackButtons.Clear();
+
+                break;
+
+            case GameStates.Track:
+                GenerateTrackButtons();
+                Debug.Log("switched to track");
+
+                break;
         }
     }
 }
