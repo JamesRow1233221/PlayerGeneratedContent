@@ -18,15 +18,20 @@ public class TrackSelectionUI : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("switched selection started ");
-
         if (trackConnecting == null)
         {
             Debug.LogError("TrackConnecting reference not assigned!");
             return;
         }
 
+        Debug.Log("Track Placement UI Started");
+
         GameManager.stateSwitched.AddListener(StateSwitched);
+
+        if (GameManager.State == GameStates.Track)
+        {
+            GenerateTrackButtons();
+        }
     }
 
     void GenerateTrackButtons()
@@ -87,14 +92,12 @@ public class TrackSelectionUI : MonoBehaviour
 
     void StateSwitched(GameStates oldState, GameStates newState)
     {
-        Debug.Log("HI THE STATE HAS SWITCHED HAHA YES!");
-
         switch (newState)
         {
             case GameStates.TrackToRace | GameStates.Race:
                 foreach (Button i in trackButtons)
                 {
-                    Destroy(i);
+                    Destroy(i.gameObject);
                 }
 
                 trackButtons.Clear();
@@ -103,7 +106,6 @@ public class TrackSelectionUI : MonoBehaviour
 
             case GameStates.Track:
                 GenerateTrackButtons();
-                Debug.Log("switched to track");
 
                 break;
         }
