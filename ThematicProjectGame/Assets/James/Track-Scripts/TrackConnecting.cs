@@ -22,7 +22,7 @@ public class TrackConnecting : MonoBehaviour
     private GameObject trackTurner;
     private Button currentButton;
     private float currentY = 0f;
-    private Transform lastPlacedTrack;
+    public Transform lastPlacedTrack;
     private float[] yValues = new float[] { -5.84f, 0f, 5.84f };
     private int yIndex = 1;
     private int tracksPlaced = 0;
@@ -212,6 +212,7 @@ public class TrackConnecting : MonoBehaviour
             Instantiate(trackTypes[currentTrackIndex].prefab, placementPosition, placementRotation);
             occupiedPositions.Add(placementPosition);
 
+            lastPlacedTrack = ghostObject.transform;
             currentButton.interactable = false;
             currentTrackIndex = -1;
             ghostObject = null;
