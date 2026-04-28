@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO;
+using System.Collections;
 
 public static class SaveSystem
 {
@@ -47,4 +48,5 @@ public static class SaveSystem
         string JSONSave = saveFileReader.ReadLine();
         LoadedData = JsonUtility.FromJson<T>(JSONSave);  
     }
+
 }
