@@ -8,6 +8,8 @@ public class CarController : MonoBehaviour
     Vector3 startingPosition;
     Vector3 startingRotation;
 
+    public Transform spawnPoint;
+
     public float fwdSpeed;
     public float revSpeed;
     public float turnSpeed;
@@ -21,7 +23,10 @@ public class CarController : MonoBehaviour
 
     public Rigidbody sphereRB;
     Vector3 sphereRBstartingPosition;
+    Vector3 sphereRBstartingRotation;
     public Rigidbody carRB;
+    Vector3 carRBstartingPosition;
+    Vector3 carRBstartingRotation;
 
     public LayerMask groundLayer;
 
@@ -31,6 +36,8 @@ public class CarController : MonoBehaviour
 
     private InputAction m_accelerate;
     private InputAction m_steer;
+
+    public int playerNumber;
 
     private void OnEnable()
     {
@@ -56,9 +63,13 @@ public class CarController : MonoBehaviour
         carRB.transform.parent = null;
 
         normalDrag = sphereRB.linearDamping;
-        startingPosition = transform.position;
-        startingRotation = transform.eulerAngles;
+
+        startingPosition = spawnPoint.position;
+        startingRotation = spawnPoint.eulerAngles;
         sphereRBstartingPosition = sphereRB.transform.position;
+        sphereRBstartingRotation = sphereRB.transform.eulerAngles;
+        carRBstartingPosition = carRB.transform.position;
+        carRBstartingRotation = carRB.transform.eulerAngles;    
 
         GameManager.stateSwitched.AddListener(StateSwitched);
     }
@@ -69,8 +80,6 @@ public class CarController : MonoBehaviour
         {
             moveInput = m_accelerate.ReadValue<float>();
             turnInput = m_steer.ReadValue<float>();
-
-            Debug.Log($"Move Input: {moveInput}, Turn Input: {turnInput}");
 
             float newRot = turnInput * turnSpeed * Time.deltaTime * moveInput;
 
@@ -108,6 +117,11 @@ public class CarController : MonoBehaviour
 
             carRB.MoveRotation(transform.rotation);
         }
+        else
+        {
+            sphereRB.linearVelocity = Vector3.zero;
+            sphereRB.angularVelocity = Vector3.zero;
+        }
     }
 
     void StateSwitched(GameStates oldState, GameStates newState)
@@ -116,13 +130,24 @@ public class CarController : MonoBehaviour
         {
             case GameStates.Race:
                 isControllable = true;
+                Debug.Log(playerNumber + " starting at " + sphereRB.transform.position.ToString());
                 break;
 
             case GameStates.Track:
                 isControllable = false;
-                sphereRB.transform.position = sphereRBstartingPosition;
+                sphereRB.linearVelocity = Vector3.zero;
+                sphereRB.angularVelocity = Vector3.zero;
+                carRB.angularVelocity = Vector3.zero;
+                carRB.linearVelocity = Vector3.zero;
+
+                sphereRB.MovePosition(sphereRBstartingPosition);
+                sphereRB.MoveRotation(Quaternion.Euler(sphereRBstartingRotation));
+                carRB.MovePosition(carRBstartingPosition);
+                carRB.MoveRotation(Quaternion.Euler(carRBstartingRotation));
                 transform.position = startingPosition;
-                transform.eulerAngles = startingRotation;
+                transform.rotation = Quaternion.Euler(startingRotation);
+
+                Debug.Log(playerNumber + " reset to " + sphereRB.transform.position.ToString());
                 break;
         }
     }

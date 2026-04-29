@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] cars;
-    [SerializeField] private Transform[] spawnPoints;
-    int connectedPlayers = 4;
+    [SerializeField] public GameObject[] cars;
+    [SerializeField] public Transform[] spawnPoints;
+    private int connectedPlayers = 4;
 
     private void Awake()
     {
@@ -23,6 +23,8 @@ public class PlayerManager : MonoBehaviour
                 Debug.Log($"Player {i + 1} assigned to gamepad: {devices[i].displayName}");
 
                 GameObject car = Instantiate(cars[i], spawnPoints[i].position, spawnPoints[i].rotation);
+                car.GetComponent<CarController>().playerNumber = i + 1;
+                car.GetComponent<CarController>().spawnPoint = spawnPoints[i];
 
                 var playerInput = car.GetComponent<PlayerInput>();
                 playerInput.SwitchCurrentControlScheme("Gamepad", devices[i]);
