@@ -53,6 +53,72 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 13.707637, y: 2.016541, z: 0.99999976}
   m_Center: {x: -0.40943336, y: -0.14783853, z: -7.91}
+--- !u!1 &3093405149014492334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3171243586249475234}
+  - component: {fileID: 89666744490447680}
+  - component: {fileID: 8335124819169825985}
+  m_Layer: 10
+  m_Name: CheckPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3171243586249475234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3093405149014492334}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -10.134376, y: -6.21057, z: -15.450103}
+  m_LocalScale: {x: 0.99999976, y: 1, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3873484551773214788}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &89666744490447680
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3093405149014492334}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.44, y: 11.71, z: 20.22}
+  m_Center: {x: 5.31, y: 8.1, z: -10.34}
+--- !u!114 &8335124819169825985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3093405149014492334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aec1c8428a8e24848a7bf01b0b875df7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
 --- !u!1 &5053620563093116790
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,6 +423,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4371098527396148493, guid: 270f513b5bbe434439f9b949c9df8326, type: 3}
       insertIndex: -1
       addedObject: {fileID: 81957443827065965}
+    - targetCorrespondingSourceObject: {fileID: 4371098527396148493, guid: 270f513b5bbe434439f9b949c9df8326, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3171243586249475234}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4026941953560965047, guid: 270f513b5bbe434439f9b949c9df8326, type: 3}
       insertIndex: -1

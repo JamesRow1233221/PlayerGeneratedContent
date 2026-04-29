@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,10 +38,16 @@ public class TrackConnecting : MonoBehaviour
     public Vector3 rayPos = new Vector3(0,0,0);
     public Vector3 rayRot = new Vector3(0,0,0);
 
+    [Header("Ending TrackPlacement settings")]
     public GameObject currentFinishLine;
 
     public int tracksPerRound = 4;
     public int tracksPlacedThisRound = 0;
+    [SerializeField] private GameObject trackPacerCamera;
+    [SerializeField] private GameObject RaceCamera;
+
+
+    
 
     private void Start()
     {
@@ -80,12 +87,18 @@ public class TrackConnecting : MonoBehaviour
             {
                 Destroy(currentFinishLine);
             }
-
             tracksPlacedThisRound = 0;
+
+            if(lastPlacedTrack != null) trackPacerCamera.GetComponent<CinemachineCamera>().Follow = lastPlacedTrack;
+            trackPacerCamera.SetActive(true);
+            RaceCamera.SetActive(false);
         }
          else if (oldState == GameStates.Track)
         {
             Debug.Log("Track Placement Ended");
+
+            trackPacerCamera.SetActive(false);
+            RaceCamera.SetActive(true);
         }
     }
 
@@ -331,5 +344,13 @@ public class TrackConnecting : MonoBehaviour
     {
         DestroyGhostObject();
     }
+
+    // public void OnCollisionEnter(Collision other)
+    // {
+    //     if(other.gameObject.layer == LayerMask.NameToLayer("Car"))
+    //     {
+    //         Destroy(other.transform.parent.gameObject);
+    //     }
+    // }
 
 }

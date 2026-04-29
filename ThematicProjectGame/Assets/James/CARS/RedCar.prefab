@@ -1052,6 +1052,8 @@ GameObject:
   - component: {fileID: 8336378889589545727}
   - component: {fileID: 231585983321021971}
   - component: {fileID: 787098267737294678}
+  - component: {fileID: 6797475646321524755}
+  - component: {fileID: 4009684274052900094}
   m_Layer: 8
   m_Name: RedCar
   m_TagString: Untagged
@@ -1090,9 +1092,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a5a23df252e6943b6ae63b7888b59f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarController
-  fwdSpeed: 200
-  revSpeed: 100
-  turnSpeed: 150
+  spawnPoint: {fileID: 0}
+  fwdSpeed: 100
+  revSpeed: 50
+  turnSpeed: 100
   modifiedDrag: 1
   sphereRB: {fileID: 2439665933673936674}
   carRB: {fileID: 5501925032435169762}
@@ -1100,6 +1103,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   alignToGroundTime: 20
+  inputActions: {fileID: 0}
+  playerNumber: 0
 --- !u!114 &8336378889589545727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,6 +1192,54 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!65 &6797475646321524755
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8424713195351584951}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &4009684274052900094
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8424713195351584951}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &9113743190955986657
 GameObject:
   m_ObjectHideFlags: 0
