@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 public class CarController : MonoBehaviour
 {
     bool isControllable = false;
+    Vector3 startingPosition;
+    Vector3 startingRotation;
 
     public float fwdSpeed;
     public float revSpeed;
@@ -18,6 +20,7 @@ public class CarController : MonoBehaviour
     public float modifiedDrag;
 
     public Rigidbody sphereRB;
+    Vector3 sphereRBstartingPosition;
     public Rigidbody carRB;
 
     public LayerMask groundLayer;
@@ -30,6 +33,9 @@ public class CarController : MonoBehaviour
         carRB.transform.parent = null;
 
         normalDrag = sphereRB.linearDamping;
+        startingPosition = transform.position;
+        startingRotation = transform.eulerAngles;
+        sphereRBstartingPosition = sphereRB.transform.position;
 
         GameManager.stateSwitched.AddListener(StateSwitched);
     }
@@ -87,11 +93,14 @@ public class CarController : MonoBehaviour
         switch (newState)
         {
             case GameStates.Race:
-                isControllable = true; 
+                isControllable = true;
                 break;
 
-            default:
+            case GameStates.Track:
                 isControllable = false;
+                sphereRB.transform.position = sphereRBstartingPosition;
+                transform.position = startingPosition;
+                transform.eulerAngles = startingRotation;
                 break;
         }
     }

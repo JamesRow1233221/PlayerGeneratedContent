@@ -37,7 +37,10 @@ public class TrackConnecting : MonoBehaviour
     public Vector3 rayPos = new Vector3(0,0,0);
     public Vector3 rayRot = new Vector3(0,0,0);
 
-    
+    public GameObject currentFinishLine;
+
+    public int tracksPerRound = 4;
+    public int tracksPlacedThisRound = 0;
 
     private void Start()
     {
@@ -71,7 +74,19 @@ public class TrackConnecting : MonoBehaviour
 
     void StateSwitched(GameStates oldState, GameStates newState)
     {
+        if (newState == GameStates.Track)
+        {
+            if (currentFinishLine != null)
+            {
+                Destroy(currentFinishLine);
+            }
 
+            tracksPlacedThisRound = 0;
+        }
+         else if (oldState == GameStates.Track)
+        {
+            Debug.Log("Track Placement Ended");
+        }
     }
 
     public void SelectTrackType(int index, Button button)
@@ -227,14 +242,16 @@ public class TrackConnecting : MonoBehaviour
             occupiedPositions.Add(placementPosition);
 
             lastPlacedTrack = ghostObject.transform;
+            Debug.Log("Placed track at: " + lastPlacedTrack);
             currentButton.interactable = false;
             int tempIndex = currentTrackIndex;
             currentTrackIndex = -1;
             ghostObject = null;
 
             tracksPlaced++;
+            tracksPlacedThisRound++;
 
-            if (tracksPlaced > 3)
+            if (tracksPlacedThisRound >= tracksPerRound)
             {
                 GameManager.EndTrackPlacement();
                 PlaceFinishTrack(lastPlacedTrack, tempIndex);
@@ -299,6 +316,9 @@ public class TrackConnecting : MonoBehaviour
         finish.transform.LookAt(finish.transform.position - (lastPos.position - finish.transform.position));
         finish.transform.localEulerAngles = new Vector3(0,finish.transform.localEulerAngles.y,0);
 
+        Debug.Log("hi i got placed");
+
+        currentFinishLine = finish;
     }
 
     public HashSet<Vector3> GetSavedPositions()
