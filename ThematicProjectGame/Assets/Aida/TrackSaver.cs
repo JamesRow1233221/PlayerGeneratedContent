@@ -78,6 +78,7 @@ public class TrackSaver : MonoBehaviour
                 WorldRotation = objectsInScene[i].transform.rotation,
                 ID = objectsInScene[i].ID,
             };
+            Debug.Log("Saving Object: " + objectsInScene[i].name);
         }
 
         trackName = inputField.text;
@@ -97,9 +98,12 @@ public class TrackSaver : MonoBehaviour
             Destroy(objectsInScene[i].gameObject);
         }
 
+        Debug.Log("Saved Track list length: " + LoadedObjectData.saveableTracks.Length);
         for(int i=0; i < LoadedObjectData.saveableTracks.Length; i++)
         {
+            Debug.Log("I = " + i);
             Instantiate(SaveableTrackLibrary.SaveableTracks[LoadedObjectData.saveableTracks[i].ID], LoadedObjectData.saveableTracks[i].WorldPosition, LoadedObjectData.saveableTracks[i].WorldRotation);
+            Debug.Log("Loading Object: " + LoadedObjectData.saveableTracks[i].ID);
         }
     }
 

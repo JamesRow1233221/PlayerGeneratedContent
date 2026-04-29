@@ -604,6 +604,13 @@ MonoBehaviour:
     prefab: {fileID: 8272562709878888890, guid: 4ed4e9bae5d888a47a6942d96b16acb3, type: 3}
   gridSize: 20
   lastPlacedTrack: {fileID: 0}
+  finishPrefab: {fileID: 7128900132206451153, guid: 40aa4a5a0e4a5d0438189fcb79aca921, type: 3}
+  rayLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  pointSystem: {fileID: 0}
+  rayPos: {x: 0, y: 0, z: 0}
+  rayRot: {x: 0, y: 0, z: 0}
 --- !u!1 &958267233
 GameObject:
   m_ObjectHideFlags: 0
