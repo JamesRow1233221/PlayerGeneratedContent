@@ -1,29 +1,22 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PointSystem : MonoBehaviour
 {
-    [SerializeField] private TrackConnecting trackConnecting;
     [SerializeField] private GameObject finishPrefab;
+    private TrackConnecting trackConnecting;
     private GameObject finishTrack;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        GetComponent<TrackConnecting>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.X))
-        {
-            PlaceFinishTrack();
-        }
-    }
-
-    public void PlaceFinishTrack()
-    {
-        Transform lastPos = trackConnecting.lastPlacedTrack;
-        Instantiate(finishPrefab,lastPos.position + lastPos.transform.forward * 20f,lastPos.rotation);
 
     }
+
+    
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6306076770832489992}
   - component: {fileID: 8803123668942684594}
   - component: {fileID: 5448122007403161916}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: collidera (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 6192887143568610093}
   - component: {fileID: 6212688471149209549}
   - component: {fileID: 6222604625034687725}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: collidera (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,8 +150,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 19.810211, y: 0.6661755, z: 2.1823392}
-  m_Center: {x: 0.008340836, y: 0.16691168, z: -1.0111636}
+  m_Size: {x: 19.810211, y: 0.6661755, z: 2.311164}
+  m_Center: {x: 0.008340836, y: 0.16691166, z: -0.9467511}
 --- !u!65 &6212688471149209549
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 6765364600736220715}
   - component: {fileID: 5063801118348741866}
   - component: {fileID: 9113233767588542441}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: collidera (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,8 +247,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 19.810211, y: 0.6661755, z: 2.1823392}
-  m_Center: {x: 0.008340836, y: 0.16691168, z: -1.0111636}
+  m_Size: {x: 19.810211, y: 0.6661755, z: 2.3440204}
+  m_Center: {x: 0.008340836, y: 0.16691154, z: -1.0920036}
 --- !u!65 &5063801118348741866
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 7226918225470355164}
   - component: {fileID: 5713986763645486596}
   - component: {fileID: 4573132753608071974}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: collidera (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 3980724739719445069}
   - component: {fileID: 1223841180031608828}
   - component: {fileID: 7583309994361315195}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: collidera (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 1245895830529408008}
   - component: {fileID: 4919840717118366877}
   - component: {fileID: 5271852551395138907}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: collidera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -594,7 +594,7 @@ GameObject:
   - component: {fileID: 958576816500533383}
   - component: {fileID: 3542149166446705962}
   - component: {fileID: 3947575049276553369}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: collidera (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 4099894083626254769}
   - component: {fileID: 500078500914366146}
   - component: {fileID: 3116689708567535958}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: collidera (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -732,8 +732,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 19.810211, y: 0.6661755, z: 2.1823392}
-  m_Center: {x: 0.008340836, y: 0.16691168, z: -1.0111636}
+  m_Size: {x: 19.810211, y: 0.6661755, z: 2.5069242}
+  m_Center: {x: 0.008340836, y: 0.1669124, z: -0.9572925}
 --- !u!65 &500078500914366146
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -776,6 +776,81 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.6310024, y: 0.82661664, z: 2.2415686}
   m_Center: {x: 8.13, y: 0.3972367, z: -1.03}
+--- !u!1 &5409777148725501973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7650251481123068358}
+  - component: {fileID: 6673656213142783165}
+  - component: {fileID: 6101947224889024364}
+  m_Layer: 0
+  m_Name: RaycastDetect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7650251481123068358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5409777148725501973}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3211635003459557530}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6673656213142783165
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5409777148725501973}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 384
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20.229393, y: 1, z: 1.461915}
+  m_Center: {x: -0.5650368, y: 0, z: -0.6423383}
+--- !u!65 &6101947224889024364
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5409777148725501973}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 384
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20.216991, y: 1, z: 1.1057606}
+  m_Center: {x: 0.26899529, y: 6, z: -19.386887}
 --- !u!1 &6022657875148201457
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,7 +863,7 @@ GameObject:
   - component: {fileID: 3868938713575812432}
   - component: {fileID: 6497517468154984101}
   - component: {fileID: 9192619403230992363}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: collidera (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -885,7 +960,7 @@ GameObject:
   - component: {fileID: 6058442041617113659}
   - component: {fileID: 9115784577043919882}
   - component: {fileID: 3508523905434094448}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: collidera (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1059,6 +1134,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 42f0113b470201a479850004da664bb2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7760830584536865267}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 42f0113b470201a479850004da664bb2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7650251481123068358}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 42f0113b470201a479850004da664bb2, type: 3}
       insertIndex: -1

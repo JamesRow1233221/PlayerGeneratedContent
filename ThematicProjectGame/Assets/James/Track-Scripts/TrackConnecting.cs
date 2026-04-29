@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class TrackConnecting : MonoBehaviour
         public GameObject prefab;
     }
 
+    [Header("Settings")]
     public TrackType[] trackTypes;
     public float gridSize = 1f;
     private int currentTrackIndex = 0;
@@ -26,6 +28,16 @@ public class TrackConnecting : MonoBehaviour
     private float[] yValues = new float[] { -5.84f, 0f, 5.84f };
     private int yIndex = 1;
     private int tracksPlaced = 0;
+    [SerializeField] private GameObject finishPrefab;
+    public LayerMask rayLayer;
+    [Header("Script Ref")]
+    [SerializeField] private PointSystem pointSystem;
+
+    [Header("Gizmos Settings")]
+    public Vector3 rayPos = new Vector3(0,0,0);
+    public Vector3 rayRot = new Vector3(0,0,0);
+
+    
 
     private void Start()
     {
@@ -53,6 +65,8 @@ public class TrackConnecting : MonoBehaviour
         {
             PlaceObject();
         }
+
+        Debug.DrawRay(rayPos,rayRot * 50, Color.rebeccaPurple);
     }
 
     void StateSwitched(GameStates oldState, GameStates newState)
@@ -214,6 +228,7 @@ public class TrackConnecting : MonoBehaviour
 
             lastPlacedTrack = ghostObject.transform;
             currentButton.interactable = false;
+            int tempIndex = currentTrackIndex;
             currentTrackIndex = -1;
             ghostObject = null;
 
@@ -222,12 +237,79 @@ public class TrackConnecting : MonoBehaviour
             if (tracksPlaced > 3)
             {
                 GameManager.EndTrackPlacement();
+                PlaceFinishTrack(lastPlacedTrack, tempIndex);
             }
         }
     }
+
+    public void PlaceFinishTrack(Transform lastPlacedTrack, int tmpIndex)
+    {
+        Transform lastPos = lastPlacedTrack;
+        HashSet<Vector3> positions = GetSavedPositions();
+        Vector3 newPos = lastPos.position + lastPos.transform.forward * 20f;
+        Quaternion newRot = lastPos.rotation;
+
+       
+
+        if(tmpIndex == 3)
+        {
+            newPos = lastPos.position + (lastPos.transform.forward * -30f);
+            //newRot = new Quaternion(lastPos.rotation.x,-lastPos.rotation.y,lastPos.rotation.z,lastPos.rotation.w);
+            rayPos = lastPos.position + lastPos.transform.forward * -11f;
+            rayRot = -lastPos.transform.forward;
+            RaycastHit hit;
+            if(Physics.Raycast(lastPos.position + lastPos.transform.forward * -11f,-lastPos.transform.forward,out hit)) 
+            {
+                if(hit.distance > 30) return;
+                newPos = lastPos.position + (lastPos.transform.right * 30f);
+                Debug.Log(hit.transform.parent.name);
+            }
+            newPos -= lastPos.transform.up * 0.4f;
+            //Debug.Log("TurnTrack1");
+        }
+        else if(tmpIndex == 4)
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(lastPos.position + lastPos.transform.forward,lastPos.transform.forward,out hit,rayLayer))
+            {
+                if(hit.distance > 50) return;
+                newPos = lastPos.position + (-lastPos.transform.forward * 40f);
+                Debug.Log(hit.transform.parent.name);
+            }
+            else
+            {
+                newPos = lastPos.position + lastPos.transform.forward * 40f;
+            }
+            rayPos = lastPos.position + lastPos.transform.forward * (gridSize/2);
+            rayRot = lastPos.transform.forward;
+        }
+        else
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(lastPos.position + lastPos.transform.forward,lastPos.transform.forward,out hit,rayLayer))
+            {
+                if(hit.distance > 30) return;
+                newPos = lastPos.position + (-lastPos.transform.forward * (gridSize*2));
+                Debug.Log(hit.transform.parent.name);
+            }
+            rayPos = lastPos.position + lastPos.transform.forward * (gridSize/2);
+            rayRot = lastPos.transform.forward;
+        }
+        var finish = Instantiate(finishPrefab,newPos,newRot);
+        finish.transform.LookAt(finish.transform.position - (lastPos.position - finish.transform.position));
+        finish.transform.localEulerAngles = new Vector3(0,finish.transform.localEulerAngles.y,0);
+
+    }
+
+    public HashSet<Vector3> GetSavedPositions()
+    {
+        return occupiedPositions;
+    }
+
 
     private void OnDestroy()
     {
         DestroyGhostObject();
     }
+
 }
