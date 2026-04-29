@@ -1,5 +1,58 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1742427151932850597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 81957443827065965}
+  - component: {fileID: 5918960079469364885}
+  m_Layer: 9
+  m_Name: RaycastDetect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &81957443827065965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742427151932850597}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3873484551773214788}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5918960079469364885
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742427151932850597}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 13.707637, y: 2.016541, z: 0.99999976}
+  m_Center: {x: -0.40943336, y: -0.14783853, z: -7.91}
 --- !u!1 &5053620563093116790
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,6 +345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7358029894978893379, guid: 270f513b5bbe434439f9b949c9df8326, type: 3}
+    - {fileID: 7445162524775342277, guid: 270f513b5bbe434439f9b949c9df8326, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4371098527396148493, guid: 270f513b5bbe434439f9b949c9df8326, type: 3}
@@ -300,6 +354,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4371098527396148493, guid: 270f513b5bbe434439f9b949c9df8326, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7680098070195458545}
+    - targetCorrespondingSourceObject: {fileID: 4371098527396148493, guid: 270f513b5bbe434439f9b949c9df8326, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 81957443827065965}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4026941953560965047, guid: 270f513b5bbe434439f9b949c9df8326, type: 3}
       insertIndex: -1
