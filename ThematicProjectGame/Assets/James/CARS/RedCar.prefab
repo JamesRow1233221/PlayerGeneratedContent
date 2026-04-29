@@ -1051,6 +1051,7 @@ GameObject:
   - component: {fileID: 3832251900903959962}
   - component: {fileID: 8336378889589545727}
   - component: {fileID: 231585983321021971}
+  - component: {fileID: 787098267737294678}
   m_Layer: 8
   m_Name: RedCar
   m_TagString: Untagged
@@ -1137,6 +1138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d268a9deb8cafc47ae1ba15ba5a78ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SFXCar
+  carRigidbody: {fileID: 0}
   wheelColliders: []
   engineIdleClip: {fileID: 8300000, guid: c2c9f9ad692e1e140af264b2324d04c5, type: 3}
   engineHighClip: {fileID: 8300000, guid: 6083442ce255eb541a09950d4867f401, type: 3}
@@ -1155,6 +1157,36 @@ MonoBehaviour:
   minCollisionForce: 2
   maxCollisionForce: 20
   collisionCooldown: 0.3
+--- !u!114 &787098267737294678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8424713195351584951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: bade652c59cb79f4c8449c1b7bb42d8f, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &9113743190955986657
 GameObject:
   m_ObjectHideFlags: 0

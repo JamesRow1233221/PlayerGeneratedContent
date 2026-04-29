@@ -20,6 +20,8 @@ public static class GameManager
 
     static public UnityEvent<GameStates, GameStates> stateSwitched;
 
+    static GameObject[] cars;
+
     [RuntimeInitializeOnLoadMethod]
     public static void StartManager()
     {
@@ -27,11 +29,20 @@ public static class GameManager
 
         state = GameStates.None;
         stateSwitched = new UnityEvent<GameStates, GameStates>();
+
+        cars = new GameObject[4];
+    }
+
+    public static void SavePlayers()
+    {
+
     }
 
     public static void StartGame()
     {
         StartPlacingTrack();
+
+        // deal with car positioning here later
     }
 
     public static void StartPlacingTrack()

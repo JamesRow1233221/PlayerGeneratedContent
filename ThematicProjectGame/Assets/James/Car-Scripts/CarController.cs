@@ -27,6 +27,29 @@ public class CarController : MonoBehaviour
 
     public float alignToGroundTime;
 
+    public InputActionAsset inputActions;
+
+    private InputAction m_accelerate;
+    private InputAction m_steer;
+
+    private void OnEnable()
+    {
+        inputActions.FindActionMap("Car").Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.FindActionMap("Car").Disable();
+    }
+
+    private void Awake()
+    {
+        inputActions = GetComponent<PlayerInput>().actions;
+
+        m_accelerate = inputActions.FindAction("Accelerate");
+        m_steer = inputActions.FindAction("Steer");
+    }
+
     void Start()
     {
         sphereRB.transform.parent = null;
@@ -44,9 +67,10 @@ public class CarController : MonoBehaviour
     {
         if (isControllable)
         {
-            float triggerAxis = Input.GetAxisRaw("Throttle");
-            moveInput = triggerAxis;
-            turnInput = Input.GetAxisRaw("Horizontal");
+            moveInput = m_accelerate.ReadValue<float>();
+            turnInput = m_steer.ReadValue<float>();
+
+            Debug.Log($"Move Input: {moveInput}, Turn Input: {turnInput}");
 
             float newRot = turnInput * turnSpeed * Time.deltaTime * moveInput;
 
@@ -56,8 +80,6 @@ public class CarController : MonoBehaviour
             }
 
             transform.position = sphereRB.transform.position;
-
-
 
             RaycastHit hit;
             isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 1f, groundLayer);
