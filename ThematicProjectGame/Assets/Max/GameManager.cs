@@ -22,6 +22,7 @@ public static class GameManager
 
     static public string trackToLoad;
     static public int RoundNum = 5;
+    static public int carsDestroyed = 0;
 
     static public bool PreLoadedTrack = false;
 

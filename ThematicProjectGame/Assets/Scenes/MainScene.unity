@@ -324,7 +324,7 @@ MonoBehaviour:
       Size: {x: 0.8, y: 0.8}
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 6.8, z: -4.76}
+  TargetOffset: {x: 0, y: -3, z: 24.5}
   Damping: {x: 0.5, y: 0.5}
   Lookahead:
     Enabled: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5d7c088409d9a40b7b09aa707777f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineOrbitalFollow
-  TargetOffset: {x: 0, y: 19, z: -38.3}
+  TargetOffset: {x: 0, y: 43.78, z: 11.6}
   TrackerSettings:
     BindingMode: 4
     PositionDamping: {x: 0, y: 1, z: 1}
@@ -1428,7 +1428,7 @@ GameObject:
   - component: {fileID: 805920964}
   - component: {fileID: 805920968}
   - component: {fileID: 805920969}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1565,9 +1565,10 @@ MonoBehaviour:
   tracksPerRound: 4
   tracksPlacedThisRound: 0
   trackPacerCamera: {fileID: 1207964244}
-  RaceCamera: {fileID: 1951238029}
+  RaceCamera: {fileID: 247297613}
   saveSystemObj: {fileID: 2187273757463147576}
   saveSystem: {fileID: 8170474963162301817}
+  lastPlacedTrackID: 0
   placeTrackSound: {fileID: 8300000, guid: adc7dbed76b163a4ba3d433543c1d0c9, type: 3}
   finishTrackSound: {fileID: 8300000, guid: 2c7ba09ee7229a140bb7efb1b54fc287, type: 3}
   panel: {fileID: 699997689}
@@ -3036,6 +3037,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073137656}
   m_CullTransparentMesh: 1
+--- !u!1 &2110415644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2110415647}
+  - component: {fileID: 2110415646}
+  - component: {fileID: 2110415645}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2110415645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110415644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d865966feb35004bafc14ca7e22faab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!65 &2110415646
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110415644}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 500, y: 5, z: 500}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &2110415647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110415644}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1080, y: 658.84, z: -301.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &428973938754338355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4033,3 +4100,4 @@ SceneRoots:
   - {fileID: 4506525856162703556}
   - {fileID: 1956183136190416655}
   - {fileID: 146762725}
+  - {fileID: 2110415647}

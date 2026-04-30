@@ -45,8 +45,8 @@ public class TrackConnecting : MonoBehaviour
 
     public int tracksPerRound = 4;
     public int tracksPlacedThisRound = 0;
-    [SerializeField] private GameObject trackPacerCamera;
-    [SerializeField] private GameObject RaceCamera;
+    public GameObject trackPacerCamera;
+    public GameObject RaceCamera;
     [SerializeField] private GameObject saveSystemObj;
     [SerializeField] private TrackSaver saveSystem;
     public int lastPlacedTrackID = 0;
@@ -94,6 +94,7 @@ public class TrackConnecting : MonoBehaviour
     {
         if (newState == GameStates.Track)
         {
+            
             maxRounds = GameManager.RoundNum;
             RoundNum++;
             if(RoundNum == maxRounds)
@@ -124,12 +125,16 @@ public class TrackConnecting : MonoBehaviour
             RaceCamera.SetActive(true);
             
         }
-        else if(GameManager.CheckState(GameStates.PreLoadedRace))
+        else if(newState == GameStates.PreLoadedRace)
         {
+            Debug.Log("State Changes to preloaded race");
             if(GameManager.trackToLoad != null)
             {
+                Debug.Log("Loading pre-loaded track: " + GameManager.trackToLoad);
                 saveSystem.Load(GameManager.trackToLoad);
             }
+            trackPacerCamera.SetActive(false);
+            RaceCamera.SetActive(true);
             
             maxRounds = GameManager.RoundNum;
             RoundNum++;
@@ -139,6 +144,8 @@ public class TrackConnecting : MonoBehaviour
                 panel.SetActive(false);
                 GameManager.ChangeState(GameStates.Results);
             }
+
+    
         }
     }
 
@@ -388,12 +395,18 @@ public class TrackConnecting : MonoBehaviour
         DestroyGhostObject();
     }
 
-    // public void OnCollisionEnter(Collision other)
-    // {
-    //     if(other.gameObject.layer == LayerMask.NameToLayer("Car"))
-    //     {
-    //         Destroy(other.transform.parent.gameObject);
-    //     }
-    // }
+    public void OnCollisionEnter(Collision other)
+    {
+        Debug.Log(other.gameObject.name);
+        if(other.gameObject.layer == LayerMask.NameToLayer("Car"))
+        {
+            if(FindFirstObjectByType<CinemachineTargetGroup>().FindMember(other.transform) >= 0 )
+            {
+                FindFirstObjectByType<CinemachineTargetGroup>().RemoveMember(other.transform);
+                GameManager.carsDestroyed++;
+            }
+
+        }
+    }
 
 }

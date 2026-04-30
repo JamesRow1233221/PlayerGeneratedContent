@@ -48,13 +48,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5501925032435169762, guid: f66c1caa673ae0a49a10e57c3c9ca937, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 6144
+      objectReference: {fileID: 0}
     - target: {fileID: 6797475646321524755, guid: f66c1caa673ae0a49a10e57c3c9ca937, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 0
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6797475646321524755, guid: f66c1caa673ae0a49a10e57c3c9ca937, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
-      value: 1591
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8424713195351584951, guid: f66c1caa673ae0a49a10e57c3c9ca937, type: 3}
       propertyPath: m_Name
@@ -94,10 +98,10 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 5120
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0

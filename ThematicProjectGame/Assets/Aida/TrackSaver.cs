@@ -14,7 +14,8 @@ public class TrackSaver : MonoBehaviour
     {
         public SaveableTrack[] saveableTracks;
         public string courseName;
-        public Transform lastPlacedTrackPos;
+        public Vector3 lastPlacedTrackPos;
+        public Vector3 lastPlacedTrackRot;
         public int lastPlacedTrackID;
     }
 
@@ -71,7 +72,8 @@ public class TrackSaver : MonoBehaviour
         {
             saveableTracks = new SaveableTrack[objectsInScene.Length],
             courseName = inputField.text,
-            lastPlacedTrackPos = FindFirstObjectByType<TrackConnecting>().lastPlacedTrack,
+            lastPlacedTrackPos = FindFirstObjectByType<TrackConnecting>().lastPlacedTrack.position,
+            lastPlacedTrackRot = FindFirstObjectByType<TrackConnecting>().lastPlacedTrack.rotation.eulerAngles,
             lastPlacedTrackID = FindFirstObjectByType<TrackConnecting>().lastPlacedTrackID
         };
 
@@ -113,16 +115,19 @@ public class TrackSaver : MonoBehaviour
         }
         
         TrackConnecting trackConnecting = FindFirstObjectByType<TrackConnecting>();
-        trackConnecting.lastPlacedTrack = LoadedObjectData.lastPlacedTrackPos;
+        Transform lastTrack = new GameObject("", typeof(Transform)).transform;
+        lastTrack.position = LoadedObjectData.lastPlacedTrackPos;
+        lastTrack.rotation = Quaternion.Euler(LoadedObjectData.lastPlacedTrackRot);
+        trackConnecting.lastPlacedTrack = lastTrack;
         trackConnecting.lastPlacedTrackID = LoadedObjectData.lastPlacedTrackID;
         trackConnecting.PlaceFinishTrack(trackConnecting.lastPlacedTrack, LoadedObjectData.lastPlacedTrackID);
-        GameManager.PreLoadedTrack = true;
         GameManager.trackToLoad = null;
     }
 
     public void AcrossSceneLoad(TMP_Text button)
     {
         GameManager.TrackToLoad(button.text);
+        GameManager.PreLoadedTrack = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
     }
 
