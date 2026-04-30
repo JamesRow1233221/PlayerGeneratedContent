@@ -23,6 +23,8 @@ public static class GameManager
     static public string trackToLoad;
     static public int RoundNum = 5;
 
+    static public bool PreLoadedTrack = false;
+
     [RuntimeInitializeOnLoadMethod]
     public static void StartManager()
     {
@@ -41,10 +43,9 @@ public static class GameManager
 
     public static void StartPlacingTrack()
     {
-        Debug.Log(trackToLoad);
-        if(trackToLoad != null)
+        if(PreLoadedTrack)
         {
-            EndTrackPlacement();
+            ChangeState(GameStates.PreLoadedRace);
         }
         else State = GameStates.Track;
         
@@ -64,7 +65,11 @@ public static class GameManager
     {
         trackToLoad = trackName;
     }
-        
+    
+    public static bool CheckState(GameStates checkState)
+    {
+        return State == checkState;
+    }
     
 
     static void StateSwitched(GameStates oldState, GameStates newState)
@@ -82,4 +87,5 @@ public enum GameStates
     Race,           // racing
     RaceToTrack,    // transitioning from racing to track placement
     Results,        // on results screen
+    PreLoadedRace
 }

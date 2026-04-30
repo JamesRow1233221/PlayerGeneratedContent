@@ -49,6 +49,7 @@ public class TrackConnecting : MonoBehaviour
     [SerializeField] private GameObject RaceCamera;
     [SerializeField] private GameObject saveSystemObj;
     [SerializeField] private TrackSaver saveSystem;
+    public int lastPlacedTrackID = 0;
     [Header("SFX settings")]
     [SerializeField] private AudioClip placeTrackSound;
     [SerializeField] private AudioClip finishTrackSound;
@@ -113,18 +114,31 @@ public class TrackConnecting : MonoBehaviour
             trackPacerCamera.SetActive(true);
             RaceCamera.SetActive(false);
         }
-         else if (newState == GameStates.Race)
+        else if (newState == GameStates.Race)
         {
-            if(GameManager.trackToLoad != null)
-            {
-                saveSystem.Load(GameManager.trackToLoad);
-            }
+            
 
             Debug.Log("Track Placement Ended");
 
             trackPacerCamera.SetActive(false);
             RaceCamera.SetActive(true);
             
+        }
+        else if(GameManager.CheckState(GameStates.PreLoadedRace))
+        {
+            if(GameManager.trackToLoad != null)
+            {
+                saveSystem.Load(GameManager.trackToLoad);
+            }
+            
+            maxRounds = GameManager.RoundNum;
+            RoundNum++;
+            if(RoundNum == maxRounds)
+            {
+                saveSystemObj.SetActive(true);
+                panel.SetActive(false);
+                GameManager.ChangeState(GameStates.Results);
+            }
         }
     }
 
@@ -284,6 +298,7 @@ public class TrackConnecting : MonoBehaviour
             Debug.Log("Placed track at: " + lastPlacedTrack);
             currentButton.interactable = false;
             int tempIndex = currentTrackIndex;
+            lastPlacedTrackID = tempIndex;
             currentTrackIndex = -1;
             ghostObject = null;
 

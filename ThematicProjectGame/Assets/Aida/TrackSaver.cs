@@ -14,6 +14,8 @@ public class TrackSaver : MonoBehaviour
     {
         public SaveableTrack[] saveableTracks;
         public string courseName;
+        public Transform lastPlacedTrackPos;
+        public int lastPlacedTrackID;
     }
 
     [System.Serializable]
@@ -68,7 +70,9 @@ public class TrackSaver : MonoBehaviour
         SaveableTracksInScene objectData = new SaveableTracksInScene
         {
             saveableTracks = new SaveableTrack[objectsInScene.Length],
-            courseName = inputField.text         
+            courseName = inputField.text,
+            lastPlacedTrackPos = FindFirstObjectByType<TrackConnecting>().lastPlacedTrack,
+            lastPlacedTrackID = FindFirstObjectByType<TrackConnecting>().lastPlacedTrackID
         };
 
         for(int i = 0; i < objectData.saveableTracks.Length; i++)
@@ -107,7 +111,12 @@ public class TrackSaver : MonoBehaviour
             Instantiate(SaveableTrackLibrary.SaveableTracks[LoadedObjectData.saveableTracks[i].ID], LoadedObjectData.saveableTracks[i].WorldPosition, LoadedObjectData.saveableTracks[i].WorldRotation);
             Debug.Log("Loading Object: " + LoadedObjectData.saveableTracks[i].ID);
         }
-
+        
+        TrackConnecting trackConnecting = FindFirstObjectByType<TrackConnecting>();
+        trackConnecting.lastPlacedTrack = LoadedObjectData.lastPlacedTrackPos;
+        trackConnecting.lastPlacedTrackID = LoadedObjectData.lastPlacedTrackID;
+        trackConnecting.PlaceFinishTrack(trackConnecting.lastPlacedTrack, LoadedObjectData.lastPlacedTrackID);
+        GameManager.PreLoadedTrack = true;
         GameManager.trackToLoad = null;
     }
 
