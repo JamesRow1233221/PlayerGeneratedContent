@@ -54,6 +54,7 @@ public class TrackConnecting : MonoBehaviour
     [SerializeField] private AudioClip finishTrackSound;
     private AudioSource audioSource;
     [SerializeField] private GameObject panel;
+    [SerializeField] private GameCamera gameCamera;
 
 
     
@@ -118,6 +119,10 @@ public class TrackConnecting : MonoBehaviour
             if(GameManager.trackToLoad != null)
             {
                 saveSystem.Load(GameManager.trackToLoad);
+            }
+            for(int i=0; i < pointSystem.playerPoints.Length; i++)
+            {
+                pointSystem.playerPoints[i] = 0;
             }
 
             Debug.Log("Track Placement Ended");
