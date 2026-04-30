@@ -33,6 +33,8 @@ public class TrackConnecting : MonoBehaviour
     public LayerMask rayLayer;
     [Header("Script Ref")]
     [SerializeField] private PointSystem pointSystem;
+    private int RoundNum = 0;
+    public int maxRounds = 4;
 
     [Header("Gizmos Settings")]
     public Vector3 rayPos = new Vector3(0,0,0);
@@ -45,12 +47,20 @@ public class TrackConnecting : MonoBehaviour
     public int tracksPlacedThisRound = 0;
     [SerializeField] private GameObject trackPacerCamera;
     [SerializeField] private GameObject RaceCamera;
+    [SerializeField] private GameObject saveSystemObj;
+    [SerializeField] private TrackSaver saveSystem;
+    [Header("SFX settings")]
+    [SerializeField] private AudioClip placeTrackSound;
+    [SerializeField] private AudioClip finishTrackSound;
+    private AudioSource audioSource;
+    [SerializeField] private GameObject panel;
 
 
     
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         trackTurner = new GameObject("TrackTurner", typeof(Transform));
         if(trackTypes.Length > 0)
         {
@@ -83,6 +93,16 @@ public class TrackConnecting : MonoBehaviour
     {
         if (newState == GameStates.Track)
         {
+            maxRounds = GameManager.RoundNum;
+            RoundNum++;
+            if(RoundNum == maxRounds)
+            {
+                saveSystemObj.SetActive(true);
+                panel.SetActive(false);
+                GameManager.ChangeState(GameStates.Results);
+            }
+
+
             if (currentFinishLine != null)
             {
                 Destroy(currentFinishLine);
@@ -93,12 +113,18 @@ public class TrackConnecting : MonoBehaviour
             trackPacerCamera.SetActive(true);
             RaceCamera.SetActive(false);
         }
-         else if (oldState == GameStates.Track)
+         else if (newState == GameStates.Race)
         {
+            if(GameManager.trackToLoad != null)
+            {
+                saveSystem.Load(GameManager.trackToLoad);
+            }
+
             Debug.Log("Track Placement Ended");
 
             trackPacerCamera.SetActive(false);
             RaceCamera.SetActive(true);
+            
         }
     }
 
@@ -263,6 +289,8 @@ public class TrackConnecting : MonoBehaviour
 
             tracksPlaced++;
             tracksPlacedThisRound++;
+            
+            audioSource.PlayOneShot(placeTrackSound);
 
             if (tracksPlacedThisRound >= tracksPerRound)
             {
@@ -330,7 +358,7 @@ public class TrackConnecting : MonoBehaviour
         finish.transform.localEulerAngles = new Vector3(0,finish.transform.localEulerAngles.y,0);
 
         Debug.Log("hi i got placed");
-
+        audioSource.PlayOneShot(finishTrackSound);
         currentFinishLine = finish;
     }
 

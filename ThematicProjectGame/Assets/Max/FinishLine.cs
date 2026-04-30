@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FinishLine : MonoBehaviour
 {
     public BoxCollider collider;
-    
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,9 +20,18 @@ public class FinishLine : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Car"))
+        if(other.gameObject.tag == "Player")
         {
             GameManager.StartPlacingTrack();
+            PointSystem pointSystem = FindFirstObjectByType<PointSystem>();
+            PlayerInput playerInput = other.TryGetComponent<PlayerInput>(out PlayerInput input) ? input : null;
+            if (playerInput != null)
+            {
+                pointSystem.playerPoints[playerInput.playerIndex] += 5;
+                pointSystem.UpdatePointUI();
+            }
+            Debug.Log("Finish line hit by " + other.gameObject.name);
+            
         }
     }
 }

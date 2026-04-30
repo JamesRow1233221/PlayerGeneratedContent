@@ -13,6 +13,7 @@ public class GameCamera : MonoBehaviour
     public int[] playerCheckpoints = new int[4];
     private int currentLeadPlayer = 0;
     [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private PointSystem pointSystem;
 
     private void Awake()
     {
@@ -29,7 +30,7 @@ public class GameCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        pointSystem.timeInFirst[currentLeadPlayer] += Time.deltaTime;
     }
 
     public void UpdateTarget()

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class TrackSaver : MonoBehaviour
 {
@@ -32,16 +33,16 @@ public class TrackSaver : MonoBehaviour
     [Header("Screenshot Settings")]
     public Vector3 pos;
     public Vector3 rot;
-    private GameObject screenshotCam;
+    public GameObject screenshotCam;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         GetSaves();
-        screenshotCam = new GameObject("ScreenshotCam", typeof(Camera));
-        screenshotCam.transform.position = pos;
-        screenshotCam.transform.eulerAngles = rot;
+        // screenshotCam = new GameObject("ScreenshotCam", typeof(Camera));
+        // screenshotCam.transform.position = pos;
+        // screenshotCam.transform.eulerAngles = rot;
         screenshotCam.SetActive(false);
     }
 
@@ -88,9 +89,10 @@ public class TrackSaver : MonoBehaviour
         
     }
 
-    public void Load(TMP_Text button)
+    public void Load(string saveName)
     {
-        SaveSystem.Load(out SaveableTracksInScene LoadedObjectData, button.text);
+        Debug.Log("LOADING TRACK...");
+        SaveSystem.Load(out SaveableTracksInScene LoadedObjectData, saveName);
 
         TrackID[] objectsInScene = FindObjectsByType<TrackID>(FindObjectsSortMode.None);
         for(int i=0; i < objectsInScene.Length; i++)
@@ -105,6 +107,14 @@ public class TrackSaver : MonoBehaviour
             Instantiate(SaveableTrackLibrary.SaveableTracks[LoadedObjectData.saveableTracks[i].ID], LoadedObjectData.saveableTracks[i].WorldPosition, LoadedObjectData.saveableTracks[i].WorldRotation);
             Debug.Log("Loading Object: " + LoadedObjectData.saveableTracks[i].ID);
         }
+
+        GameManager.trackToLoad = null;
+    }
+
+    public void AcrossSceneLoad(TMP_Text button)
+    {
+        GameManager.TrackToLoad(button.text);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
     }
 
     public void GetSaves()
@@ -136,6 +146,11 @@ public class TrackSaver : MonoBehaviour
         {
             layout[i].gameObject.SetActive(false);
         }
+    }
+
+    public void Quit()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
     public IEnumerator CaptureScreenshot(string courseName)

@@ -26,8 +26,4 @@ public class PointsHolder : MonoBehaviour
         
     }
 
-    public void FindPlayers()
-    {
-        List<PlayerInput> tmp = new List<PlayerInput>(FindObjectsByType<PlayerInput>(FindObjectsSortMode.None));
-    }
 }

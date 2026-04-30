@@ -20,6 +20,9 @@ public static class GameManager
 
     static public UnityEvent<GameStates, GameStates> stateSwitched;
 
+    static public string trackToLoad;
+    static public int RoundNum = 5;
+
     [RuntimeInitializeOnLoadMethod]
     public static void StartManager()
     {
@@ -32,17 +35,37 @@ public static class GameManager
     public static void StartGame()
     {
         StartPlacingTrack();
+
+        
     }
 
     public static void StartPlacingTrack()
     {
-        State = GameStates.Track;
+        Debug.Log(trackToLoad);
+        if(trackToLoad != null)
+        {
+            EndTrackPlacement();
+        }
+        else State = GameStates.Track;
+        
     }
 
     public static void EndTrackPlacement()
     {
         State = GameStates.Race;
     }
+
+    public static void ChangeState(GameStates newState)
+    {
+        State = newState;
+    }
+    
+    public static void TrackToLoad(string trackName)
+    {
+        trackToLoad = trackName;
+    }
+        
+    
 
     static void StateSwitched(GameStates oldState, GameStates newState)
     {
@@ -58,5 +81,5 @@ public enum GameStates
     TrackToRace,    // transitioning from track placement to racing
     Race,           // racing
     RaceToTrack,    // transitioning from racing to track placement
-    Results         // on results screen
+    Results,        // on results screen
 }

@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 195351037335210796}
   - component: {fileID: 1985287312780074417}
   - component: {fileID: 4322501726196971393}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FinishLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af82be7e9d727d64382720321e81cbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  collider: {fileID: 0}
 --- !u!1001 &7939733132657009792
 PrefabInstance:
   m_ObjectHideFlags: 0
