@@ -148,6 +148,14 @@ public class CarController : MonoBehaviour
 
                 Debug.Log(playerNumber + " reset to " + sphereRB.transform.position.ToString());
                 break;
+            
+            case GameStates.PreLoadedRace:
+                isControllable = true;
+                Debug.Log(playerNumber + " starting at " + sphereRB.transform.position.ToString());
+                TrackConnecting connector = FindFirstObjectByType<TrackConnecting>();
+                connector.trackPacerCamera.SetActive(false);
+                connector.RaceCamera.SetActive(true);
+                break;
         }
     }
 }

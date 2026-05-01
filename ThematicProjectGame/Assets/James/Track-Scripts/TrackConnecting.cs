@@ -45,16 +45,16 @@ public class TrackConnecting : MonoBehaviour
 
     public int tracksPerRound = 4;
     public int tracksPlacedThisRound = 0;
-    [SerializeField] private GameObject trackPacerCamera;
-    [SerializeField] private GameObject RaceCamera;
+    public GameObject trackPacerCamera;
+    public GameObject RaceCamera;
     [SerializeField] private GameObject saveSystemObj;
     [SerializeField] private TrackSaver saveSystem;
+    public int lastPlacedTrackID = 0;
     [Header("SFX settings")]
     [SerializeField] private AudioClip placeTrackSound;
     [SerializeField] private AudioClip finishTrackSound;
     private AudioSource audioSource;
     [SerializeField] private GameObject panel;
-    [SerializeField] private GameCamera gameCamera;
 
 
     
@@ -94,6 +94,7 @@ public class TrackConnecting : MonoBehaviour
     {
         if (newState == GameStates.Track)
         {
+            
             maxRounds = GameManager.RoundNum;
             RoundNum++;
             if(RoundNum == maxRounds)
@@ -114,22 +115,37 @@ public class TrackConnecting : MonoBehaviour
             trackPacerCamera.SetActive(true);
             RaceCamera.SetActive(false);
         }
-         else if (newState == GameStates.Race)
+        else if (newState == GameStates.Race)
         {
-            if(GameManager.trackToLoad != null)
-            {
-                saveSystem.Load(GameManager.trackToLoad);
-            }
-            for(int i=0; i < pointSystem.playerPoints.Length; i++)
-            {
-                pointSystem.playerPoints[i] = 0;
-            }
+            
 
             Debug.Log("Track Placement Ended");
 
             trackPacerCamera.SetActive(false);
             RaceCamera.SetActive(true);
             
+        }
+        else if(newState == GameStates.PreLoadedRace)
+        {
+            Debug.Log("State Changes to preloaded race");
+            if(GameManager.trackToLoad != null)
+            {
+                Debug.Log("Loading pre-loaded track: " + GameManager.trackToLoad);
+                saveSystem.Load(GameManager.trackToLoad);
+            }
+            trackPacerCamera.SetActive(false);
+            RaceCamera.SetActive(true);
+            
+            maxRounds = GameManager.RoundNum;
+            RoundNum++;
+            if(RoundNum == maxRounds)
+            {
+                saveSystemObj.SetActive(true);
+                panel.SetActive(false);
+                GameManager.ChangeState(GameStates.Results);
+            }
+
+    
         }
     }
 
@@ -289,6 +305,7 @@ public class TrackConnecting : MonoBehaviour
             Debug.Log("Placed track at: " + lastPlacedTrack);
             currentButton.interactable = false;
             int tempIndex = currentTrackIndex;
+            lastPlacedTrackID = tempIndex;
             currentTrackIndex = -1;
             ghostObject = null;
 
@@ -378,12 +395,18 @@ public class TrackConnecting : MonoBehaviour
         DestroyGhostObject();
     }
 
-    // public void OnCollisionEnter(Collision other)
-    // {
-    //     if(other.gameObject.layer == LayerMask.NameToLayer("Car"))
-    //     {
-    //         Destroy(other.transform.parent.gameObject);
-    //     }
-    // }
+    public void OnCollisionEnter(Collision other)
+    {
+        Debug.Log(other.gameObject.name);
+        if(other.gameObject.layer == LayerMask.NameToLayer("Car"))
+        {
+            if(FindFirstObjectByType<CinemachineTargetGroup>().FindMember(other.transform) >= 0 )
+            {
+                FindFirstObjectByType<CinemachineTargetGroup>().RemoveMember(other.transform);
+                GameManager.carsDestroyed++;
+            }
+
+        }
+    }
 
 }

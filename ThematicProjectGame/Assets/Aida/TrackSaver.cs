@@ -14,6 +14,9 @@ public class TrackSaver : MonoBehaviour
     {
         public SaveableTrack[] saveableTracks;
         public string courseName;
+        public Vector3 lastPlacedTrackPos;
+        public Vector3 lastPlacedTrackRot;
+        public int lastPlacedTrackID;
     }
 
     [System.Serializable]
@@ -68,7 +71,10 @@ public class TrackSaver : MonoBehaviour
         SaveableTracksInScene objectData = new SaveableTracksInScene
         {
             saveableTracks = new SaveableTrack[objectsInScene.Length],
-            courseName = inputField.text         
+            courseName = inputField.text,
+            lastPlacedTrackPos = FindFirstObjectByType<TrackConnecting>().lastPlacedTrack.position,
+            lastPlacedTrackRot = FindFirstObjectByType<TrackConnecting>().lastPlacedTrack.rotation.eulerAngles,
+            lastPlacedTrackID = FindFirstObjectByType<TrackConnecting>().lastPlacedTrackID
         };
 
         for(int i = 0; i < objectData.saveableTracks.Length; i++)
@@ -107,13 +113,21 @@ public class TrackSaver : MonoBehaviour
             Instantiate(SaveableTrackLibrary.SaveableTracks[LoadedObjectData.saveableTracks[i].ID], LoadedObjectData.saveableTracks[i].WorldPosition, LoadedObjectData.saveableTracks[i].WorldRotation);
             Debug.Log("Loading Object: " + LoadedObjectData.saveableTracks[i].ID);
         }
-
+        
+        TrackConnecting trackConnecting = FindFirstObjectByType<TrackConnecting>();
+        Transform lastTrack = new GameObject("", typeof(Transform)).transform;
+        lastTrack.position = LoadedObjectData.lastPlacedTrackPos;
+        lastTrack.rotation = Quaternion.Euler(LoadedObjectData.lastPlacedTrackRot);
+        trackConnecting.lastPlacedTrack = lastTrack;
+        trackConnecting.lastPlacedTrackID = LoadedObjectData.lastPlacedTrackID;
+        trackConnecting.PlaceFinishTrack(trackConnecting.lastPlacedTrack, LoadedObjectData.lastPlacedTrackID);
         GameManager.trackToLoad = null;
     }
 
     public void AcrossSceneLoad(TMP_Text button)
     {
         GameManager.TrackToLoad(button.text);
+        GameManager.PreLoadedTrack = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
     }
 
