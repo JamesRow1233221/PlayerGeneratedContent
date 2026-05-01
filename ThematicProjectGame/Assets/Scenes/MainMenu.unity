@@ -265,8 +265,8 @@ GameObject:
   m_Component:
   - component: {fileID: 47542485}
   - component: {fileID: 47542484}
-  - component: {fileID: 47542483}
   - component: {fileID: 47542482}
+  - component: {fileID: 47542483}
   - component: {fileID: 47542481}
   m_Layer: 0
   m_Name: CinemachineCamera
@@ -429,7 +429,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345288355}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
